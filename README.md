@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Mobile-Flashcards
 
 This is an app for Udacity React Nanodegree Program.
@@ -36,3 +37,6 @@ I will modify the app as request.
 * [Atom](https://atom.io)
 * [Git](https://git-scm.com/)
 * [Github](https://github.com/)
+=======
+# mobile-flashcards-redux
+>>>>>>> b9d1fe6bef997dee3d3f18f732c8dc08c96e1121
