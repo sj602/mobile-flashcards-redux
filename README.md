@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# Mobile-Flashcards
+# Mobile-Flashcards-Redux
 
 This is an app for Udacity React Nanodegree Program.
 A user can add decks and quizzes, solve quizzes on the deck.
@@ -12,6 +11,7 @@ If you have Node installed, you have NPM, if not install node:
 * [Node](https://nodejs.org/en/)
 
 * [Expo](https://expo.io/)
+
 You can download Expo on your Google Play market or Iphone App Store.
 Expo connects your phone and the app.
 
@@ -37,6 +37,3 @@ I will modify the app as request.
 * [Atom](https://atom.io)
 * [Git](https://git-scm.com/)
 * [Github](https://github.com/)
-=======
-# mobile-flashcards-redux
->>>>>>> b9d1fe6bef997dee3d3f18f732c8dc08c96e1121
