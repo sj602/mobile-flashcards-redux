@@ -58,7 +58,7 @@ class Quiz extends Component {
       return (
         <View style={styles.container}>
             <View style={styles.textView}>
-              <Text style={styles.text1}>Your Correct Rate : {rate}%</Text>
+              <Text style={styles.textUpper}>Your Correct Rate : {rate}%</Text>
             </View>
           <TouchableOpacity style={styles.buttonGreen} onPress={() => navigate('Home')}>
             <Text style={{color: 'white'}}>Back to Home</Text>
@@ -76,16 +76,16 @@ class Quiz extends Component {
       )
     }
 
-    const text1 = this.state.flipped === false ? cloneQuestions[0]["question"] : cloneQuestions[0]["answer"]
-    const text2 = this.state.flipped === false ?  'Answer' : 'Question'
+    const textUpper = this.state.flipped === false ? cloneQuestions[0]["question"] : cloneQuestions[0]["answer"]
+    const textLower = this.state.flipped === false ?  'Answer' : 'Question'
 
       return (
 
           <View style={styles.container}>
             <TouchableOpacity onPress={() => this.handleFlipped()}>
               <View style={styles.textView}>
-                <Text style={styles.text1}>{text1}</Text>
-                <Text style={styles.text2}>{text2}</Text>
+                <Text style={styles.textUpper}>{textUpper}</Text>
+                <Text style={styles.textLower}>{textLower}</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonGreen} onPress={() => this.checkAnswer('Correct')}>
@@ -127,14 +127,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  text1: {
+  textUpper: {
     fontSize: 30,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center'
   },
 
-  text2: {
+  textLower: {
     fontSize: 15,
     color: 'red',
     justifyContent: 'center',

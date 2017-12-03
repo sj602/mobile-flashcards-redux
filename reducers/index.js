@@ -4,7 +4,7 @@ import {
   ACTION_ADD_DECK,
   ACTION_ADD_CARD,
   ACTION_DELETE_ALL_DECKS,
-} from '../actions';
+} from '../actions/types';
 
 // const initialState = {
 //   decks: {
@@ -39,7 +39,7 @@ import {
 //   },
 // }
 
-export default function reducer(state = {}, action) {
+export default function decks(state = {}, action) {
   switch(action.type) {
     case ACTION_GET_DECKS:
       return {
@@ -66,7 +66,6 @@ export default function reducer(state = {}, action) {
       }
 
     case ACTION_ADD_CARD:
-      console.log(...state)
       return {
         ...state,
         decks: {

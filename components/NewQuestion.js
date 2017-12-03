@@ -17,11 +17,14 @@ class NewQuestion extends Component {
 
   submitQuestion() {
     const { title } = this.props.navigation.state.params;
-    // let previous_questions = this.props.navigation.state.params.questions;
-    const { question, answer } = this.state;
+    let { question, answer } = this.state;
 
-    if(question === '' || answer === '' || answer !== 'Correct' || answer !== 'Incorrect') {
+    // form check
+    if(answer === 'Correct' || answer === 'Incorrect') {
+    } else if(question === '' || answer === '') {
       return Alert.alert('Warning', 'Please type proper text');
+    } else {
+      return Alert.alert('Warning', "Please type 'Correct' or 'Incorrect' in an answer form.");
     }
 
     let obj = {};
@@ -39,19 +42,6 @@ class NewQuestion extends Component {
 
     Keyboard.dismiss();
 
-    // const resetActions = NavigationActions.reset({
-    //   index: 1,
-    //   actions: [
-    //     NavigationActions.navigate({ routeName: 'Home'}),
-    //     NavigationActions.navigate({ routeName: 'DeckDetail', param: { title }})
-    //   ],
-    // })
-    // return this.props.navigation.dispatch(resetActions);
-
-    // return this.props.navigation.dispatch(NavigationActions.navigate({
-    //   routeName: 'DeckDetail',
-    //   params: { title }
-    // }));
     return this.props.navigation.goBack();
   }
 

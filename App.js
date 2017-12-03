@@ -3,8 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppStatusBar, setLocalNotification } from './utils/helpers';
 import { Stacks } from './utils/navigation';
 import { Provider } from 'react-redux';
-import reducer from './reducers/';
-import { createStore } from 'redux';
+import { store } from './store';
 
 export default class App extends Component {
   componentDidMount() {
@@ -13,7 +12,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={styles.container}>
           <AppStatusBar />
           <Stacks />

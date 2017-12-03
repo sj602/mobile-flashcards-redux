@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
   View, Text, TouchableOpacity,
-  StyleSheet, Alert, ScrollView }
-from 'react-native';
+  StyleSheet, Alert, ScrollView
+} from 'react-native';
 import { connect } from 'react-redux';
 import { getDecks, deleteAllDecks } from '../utils/api';
 import { dummyDecks } from '../utils/dummyDecks';
@@ -21,8 +21,33 @@ class Decks extends Component {
       )
   }
 
-  render() {
+  renderDecks() {
     const { decks, dispatch, navigation } = this.props;
+
+    if(decks) {
+      return Object.keys(decks).map(deck => {
+        const title = decks[deck]['title'];
+        const questions = decks[deck]['questions'];
+        const card = questions.length <= 1 ? 'card' : 'cards';
+
+          return (
+            <TouchableOpacity key={title} onPress={() => navigation.navigate('DeckDetail', { title, questions })}>
+              <View style={styles.deck}>
+                <Text style={styles.title}>
+                  { title }
+                </Text>
+                <Text style={styles.cards}>
+                  { questions.length } {card}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )
+        })
+      }
+  }
+
+  render() {
+    const { decks, dispatch } = this.props;
 
     if(!decks) {
       return (
@@ -49,25 +74,7 @@ class Decks extends Component {
             </View>
           </TouchableOpacity>
 
-          { decks && Object.keys(decks).map(deck => {
-            const title = decks[deck]['title'];
-            const questions = decks[deck]['questions'];
-            const card = questions.length <= 1 ? 'card' : 'cards';
-
-              return (
-                <TouchableOpacity key={title} onPress={() => navigation.navigate('DeckDetail', { title, questions })}>
-                  <View style={styles.deck}>
-                    <Text style={styles.title}>
-                      { title }
-                    </Text>
-                    <Text style={styles.cards}>
-                      { questions.length } {card}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              )
-            })
-          }
+          { this.renderDecks() }
         </ScrollView>
       </View>
     );
