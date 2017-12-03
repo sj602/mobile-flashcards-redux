@@ -28,7 +28,7 @@ class NewDeck extends Component {
     this.textInput.clear();
     Keyboard.dismiss();
 
-    return navigation.navigate('DeckDetail', { title: title });
+    return navigation.navigate('DeckDetail', { title });
   }
 
   render(){

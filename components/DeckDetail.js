@@ -6,25 +6,11 @@ import {
 import { connect } from 'react-redux';
 
 class DeckDetail extends Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   headerLeft: <TouchableOpacity>
-  //           <Ionicons onPress={() => navigation.navigate('Decks', { reload: true })}
-  //             name={'md-arrow-back'}
-  //             size={25}
-  //             style={{marginLeft: 20}}
-  //           />
-  //         </TouchableOpacity>
-  // })
-
-  // componentWillMount() {
-  //   Keyboard.dismiss();
-  // }
-
   render() {
     const { title } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
     const { decks } = this.props;
-    const card = decks[title]['questions'].length === 0 ? 'card' : 'cards';
+    const card = decks[title]['questions'].length <= 1 ? 'card' : 'cards';
 
     return (
       <View style={styles.container}>

@@ -12,7 +12,6 @@ import {
 
 class Decks extends Component {
   componentDidMount(){
-    console.log('componentDidMount')
     const { dispatch } = this.props
 
     getDecks()
@@ -53,6 +52,7 @@ class Decks extends Component {
           { decks && Object.keys(decks).map(deck => {
             const title = decks[deck]['title'];
             const questions = decks[deck]['questions'];
+            const card = questions.length <= 1 ? 'card' : 'cards';
 
               return (
                 <TouchableOpacity key={title} onPress={() => navigation.navigate('DeckDetail', { title, questions })}>
@@ -61,7 +61,7 @@ class Decks extends Component {
                       { title }
                     </Text>
                     <Text style={styles.cards}>
-                      { questions.length } cards
+                      { questions.length } {card}
                     </Text>
                   </View>
                 </TouchableOpacity>

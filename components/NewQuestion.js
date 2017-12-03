@@ -5,6 +5,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import { addCardToDeck } from '../utils/api';
 import { actionAddCard } from '../actions';
 
@@ -19,8 +20,8 @@ class NewQuestion extends Component {
     // let previous_questions = this.props.navigation.state.params.questions;
     const { question, answer } = this.state;
 
-    if(question === '' || answer === '') {
-      return Alert.alert('Warning', 'Please type text.');
+    if(question === '' || answer === '' || answer !== 'Correct' || answer !== 'Incorrect') {
+      return Alert.alert('Warning', 'Please type proper text');
     }
 
     let obj = {};
@@ -38,7 +39,20 @@ class NewQuestion extends Component {
 
     Keyboard.dismiss();
 
-    return this.props.navigation.navigate('DeckDetail', { title });
+    // const resetActions = NavigationActions.reset({
+    //   index: 1,
+    //   actions: [
+    //     NavigationActions.navigate({ routeName: 'Home'}),
+    //     NavigationActions.navigate({ routeName: 'DeckDetail', param: { title }})
+    //   ],
+    // })
+    // return this.props.navigation.dispatch(resetActions);
+
+    // return this.props.navigation.dispatch(NavigationActions.navigate({
+    //   routeName: 'DeckDetail',
+    //   params: { title }
+    // }));
+    return this.props.navigation.goBack();
   }
 
   render() {
