@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity,
+import {
+View, Text, TouchableOpacity,
 KeyboardAvoidingView, TextInput, StyleSheet,
+Alert, Keyboard
 } from 'react-native';
 import { connect } from 'react-redux';
 import { saveDeckTitle } from '../utils/api';
@@ -12,18 +14,21 @@ class NewDeck extends Component {
   }
 
   submitDeck() {
-    const { dispatch } = this.props;
+    const { dispatch, navigation } = this.props;
     const { title } = this.state;
 
-    saveDeckTitle(title)
-      .then(() => {
-          const deck = {
-            title: title,
-            questions: [],
-          }
-          dispatch(actionAddDeck(title, deck))
-        }
-      )
+    if(!title) {
+      return Alert.alert('Warning', 'Please type a title.');
+    }
+
+    saveDeckTitle(title);
+    this.props.actionAddDeck(title);
+
+    this.setState({ title: '' });
+    this.textInput.clear();
+    Keyboard.dismiss();
+
+    return navigation.navigate('DeckDetail', { title: title });
   }
 
   render(){
@@ -40,15 +45,11 @@ class NewDeck extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ...state
-  }
-}
-
-export default connect(mapStateToProps)(NewDeck)
+const mapStateToProps = ({ decks }) => ({ decks });
+export default connect(mapStateToProps, { actionAddDeck })(NewDeck);
 
 
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

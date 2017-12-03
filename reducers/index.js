@@ -6,40 +6,40 @@ import {
   ACTION_DELETE_ALL_DECKS,
 } from '../actions';
 
-const initialState = {
-  decks: {
-    React: {
-      title: 'React',
-      questions: [
-        {
-          question: 'What is React?',
-          answer: 'A library for managing user interfaces'
-        },
-        {
-          question: 'Where do you make Ajax requests in React?',
-          answer: 'The componentDidMount lifecycle event'
-        }
-      ]
-    },
-    JavaScript: {
-      title: 'JavaScript',
-      questions: [
-        {
-          question: 'What is a closure?',
-          answer: 'The combination of a function and the lexical environment within which that function was declared.'
-        }
-      ]
-    }
-  },
-  isReady: false,
-  hasDecks: false,
-  deck: {
-    title: '',
-    questions: [],
-  },
-}
+// const initialState = {
+//   decks: {
+//     React: {
+//       title: 'React',
+//       questions: [
+//         {
+//           question: 'What is React?',
+//           answer: 'A library for managing user interfaces'
+//         },
+//         {
+//           question: 'Where do you make Ajax requests in React?',
+//           answer: 'The componentDidMount lifecycle event'
+//         }
+//       ]
+//     },
+//     JavaScript: {
+//       title: 'JavaScript',
+//       questions: [
+//         {
+//           question: 'What is a closure?',
+//           answer: 'The combination of a function and the lexical environment within which that function was declared.'
+//         }
+//       ]
+//     }
+//   },
+//   isReady: false,
+//   hasDecks: false,
+//   deck: {
+//     title: '',
+//     questions: [],
+//   },
+// }
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = {}, action) {
   switch(action.type) {
     case ACTION_GET_DECKS:
       return {
@@ -57,22 +57,23 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         decks: {
-          ...state[decks],
-          [action.title]: action.deck
+          ...state.decks,
+          [action.title]: {
+            title: action.title,
+            questions: [],
+          }
         }
       }
 
     case ACTION_ADD_CARD:
+      console.log(...state)
       return {
         ...state,
         decks: {
-          ...state[decks],
+          ...state.decks,
           [action.title]: {
-            ...state[decks][action.title],
-            questions: [
-              ...state[decks][action.title][questions],
-              action.card
-            ]
+            title: action.title,
+            questions: state.decks[action.title].questions.concat(action.card)
           }
         }
       }
@@ -82,5 +83,8 @@ export default function reducer(state = initialState, action) {
         ...state,
         decks: {},
       }
+
+    default:
+      return state;
   }
 }

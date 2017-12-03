@@ -1,12 +1,91 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, } from 'react-native';
+import {
+  View, Text, TouchableOpacity,
+  StyleSheet, TextInput, Alert,
+  Keyboard,
+} from 'react-native';
+import { connect } from 'react-redux';
+import { addCardToDeck } from '../utils/api';
+import { actionAddCard } from '../actions';
 
-export default class NewQuestion extends Component {
-  render(){
+class NewQuestion extends Component {
+  state = {
+    question: '',
+    answer: '',
+  }
+
+  submitQuestion() {
+    const { title } = this.props.navigation.state.params;
+    // let previous_questions = this.props.navigation.state.params.questions;
+    const { question, answer } = this.state;
+
+    if(question === '' || answer === '') {
+      return Alert.alert('Warning', 'Please type text.');
+    }
+
+    let obj = {};
+    obj = {
+      question: question,
+      answer: answer,
+    }
+
+    addCardToDeck(title, obj);
+    this.props.actionAddCard(title, obj);
+
+    this.setState({ question: '', answer: ''});
+    this.QuizInput.clear();
+    this.AnswerInput.clear();
+
+    Keyboard.dismiss();
+
+    return this.props.navigation.navigate('DeckDetail', { title });
+  }
+
+  render() {
     return (
-      <View>
-        <Text>1</Text>
+      <View style={styles.container}>
+        <TextInput style={{width: 300}} placeholder="Quiz" ref={ref => this.QuizInput = ref} onChangeText={question => this.setState({ question })} />
+        <TextInput style={{width: 300}} placeholder="Type only either 'Correct' or 'Incorrect'" ref={ref => this.AnswerInput = ref} onChangeText={answer => this.setState({ answer })} />
+        <TouchableOpacity style={styles.submit} onPress={() => this.submitQuestion()}>
+            <Text style={styles.textSubmit}>Submit</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    decks: state.decks
+  }
+};
+
+export default connect(mapStateToProps, { actionAddCard })(NewQuestion);
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 50,
+    backgroundColor: 'white'
+  },
+
+  textSubmit: {
+    fontSize: 15,
+    color: 'white',
+  },
+
+  submit: {
+    marginTop: 30,
+    width: 200,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+    borderRadius: 10,
+  },
+
+});

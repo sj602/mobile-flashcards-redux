@@ -26,11 +26,10 @@ export function actionDeleteAllDecks() {
   }
 }
 
-export function actionAddDeck(title, deck) {
+export function actionAddDeck(title) {
   return {
     type: ACTION_ADD_DECK,
     title,
-    deck,
   }
 }
 

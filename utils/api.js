@@ -39,3 +39,7 @@ export const addCardToDeck = (title, card) => {
       return AsyncStorage.mergeItem(KEY, JSON.stringify(data))
     })
 }
+
+export const deleteAllDecks = () => {
+  return AsyncStorage.removeItem(KEY);
+}
